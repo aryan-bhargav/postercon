@@ -43,7 +43,7 @@ const PosterCard = ({ name, path, price, originalPrice, sizeOptions }) => {
     <div className="p-4 bg-white shadow-md rounded-lg relative">
       {/* Poster Image */}
       <div className="relative w-full overflow-hidden" style={{ aspectRatio: "210 / 297" }}>
-        <img src={path} alt={name} className="w-full h-full object-cover rounded-md" />
+        <img src={path} alt={name} className="w-full h-full object-cover rounded-md" loading="lazy" />
       </div>
 
       {/* Sale Badge */}

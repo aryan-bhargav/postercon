@@ -3,12 +3,14 @@ import animeData from "../data/anime";
 import moviesData from "../data/movies";
 import artistsData from "../data/artists";
 import carsData from "../data/cars";
+import gamesData from "../data/games"
 
 const categoryData = {
   anime: animeData,
   movies: moviesData,
   artists: artistsData,
   cars: carsData,
+  games: gamesData,
 };
 
 const CategoryPage = () => {

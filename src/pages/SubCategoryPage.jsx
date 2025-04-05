@@ -3,10 +3,12 @@ import PosterCard from "../components/PosterCard";
 import animeData from "../data/anime";
 import artistsData from "../data/artists";
 import carsData from "../data/cars";
+import gamesData from "../data/games"
 
 const subCategoryData = {
   anime: animeData,
   artists: artistsData,
+  games: gamesData,
   cars: carsData,
 };
 

@@ -1,11 +1,14 @@
 import { motion } from "framer-motion";
+import superheroImg from "/thumbnail/superhero.jpg";
+import movieImg from "/thumbnail/movie.jpg";
+import f1Img from "/thumbnail/f1.jpg";
 
 const collections = [
-  { name: "Superhero", image: "/posters/superhero.jpg" },
-  { name: "Movie", image: "/posters/movie.jpg" },
-  { name: "Formula 1", image: "/posters/f1.jpg" },
-  { name: "Quotes", image: "/posters/quotes.jpg" },
-  { name: "Music", image: "/posters/music.jpg" },
+  { name: "Superhero", image: superheroImg },
+  { name: "Movie", image: movieImg },
+  { name: "Formula 1", image: f1Img },
+  // { name: "Quotes", image: quotesImg },
+  // { name: "Music", image: musicImg },
 ];
 
 const Collections = () => {
