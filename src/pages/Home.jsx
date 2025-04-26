@@ -25,13 +25,11 @@ const Home = () => {
     <div>
       <Carousel images={images} />
       <Marquee/>
-      <CategoryListHome/>
+      <CategoryList />
       <BestSelling/>
       <Collections/>
       <WhyChooseUs/>
       <FAQ/>
-      <h2 className="text-2xl font-bold mt-6 p-4">Shop by Categories</h2>
-      <CategoryList />
     </div>
   );
 };

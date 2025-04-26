@@ -1,63 +1,9 @@
 import PosterCard from "../PosterCard";
+import bestSelling from "../../data/bestSelling"
+
 
 const BestSelling = () => {
-  const bestSellingPosters = [
-    {
-      name: "Porsche 911 GT3 RS #01 | CAR SET | 5 Piece Set",
-      path: "/posters/cars/porsche-911-gt3-rs-01.jpg",
-      price: "399.00",
-      originalPrice: "499.00",
-      sizeOptions: [
-        { label: "Small", value: "small", price: "399.00" },
-        { label: "Medium", value: "medium", price: "499.00" },
-        { label: "Large", value: "large", price: "599.00" },
-      ],
-    },
-    {
-      name: "Porsche 911 GT3 RENNSPORT #01 | CAR SET | 5 Piece Set",
-      path: "/posters/cars/porsche-911-gt3-rennsport.jpg",
-      price: "399.00",
-      originalPrice: "499.00",
-      sizeOptions: [
-        { label: "Small", value: "small", price: "399.00" },
-        { label: "Medium", value: "medium", price: "499.00" },
-        { label: "Large", value: "large", price: "599.00" },
-      ],
-    },
-    {
-      name: "BABA YAGA BOSS x 1969 FORD MUSTANG | Car Set | 3 Piece Set",
-      path: "/posters/cars/baba-yaga-mustang.jpg",
-      price: "299.00",
-      originalPrice: "399.00",
-      sizeOptions: [
-        { label: "Small", value: "small", price: "299.00" },
-        { label: "Medium", value: "medium", price: "399.00" },
-        { label: "Large", value: "large", price: "499.00" },
-      ],
-    },
-    {
-      name: "VINTAGE SOUL X FORD MUSTANG 1969 | CAR SET | 3 Piece Set",
-      path: "/posters/cars/vintage-mustang.jpg",
-      price: "299.00",
-      originalPrice: "399.00",
-      sizeOptions: [
-        { label: "Small", value: "small", price: "299.00" },
-        { label: "Medium", value: "medium", price: "399.00" },
-        { label: "Large", value: "large", price: "499.00" },
-      ],
-    },
-    {
-      name: "LAND ROVER DEFENDER 130 OUTBOUND | Car Set | 3 Piece Set",
-      path: "/posters/cars/land-rover-defender.jpg",
-      price: "299.00",
-      originalPrice: "399.00",
-      sizeOptions: [
-        { label: "Small", value: "small", price: "299.00" },
-        { label: "Medium", value: "medium", price: "399.00" },
-        { label: "Large", value: "large", price: "499.00" },
-      ],
-    },
-  ];
+  const bestSellingPosters = bestSelling;
 
   return (
     <section className="w-full py-10">
@@ -68,7 +14,7 @@ const BestSelling = () => {
       </h2>
 
       {/* Poster Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 px-4">
+      <div className="grid grid-cols-1  sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 overflow-auto px-4">
         {bestSellingPosters.map((poster, index) => (
           <PosterCard key={index} {...poster} />
         ))}

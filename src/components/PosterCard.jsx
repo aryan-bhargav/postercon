@@ -59,7 +59,7 @@ const PosterCard = ({ name, path, price, originalPrice, sizeOptions }) => {
       {/* Pricing */}
       <div className="flex items-center space-x-2 mt-1">
         {originalPrice && <span className="text-gray-400 line-through text-sm">Rs. {originalPrice}</span>}
-        <span className="text-lg font-semibold">From Rs. {price}</span>
+        <span className="text-lg font-semibold">From Rs. 99</span>
       </div>
 
       {/* Size Selection Dropdown */}
@@ -78,26 +78,27 @@ const PosterCard = ({ name, path, price, originalPrice, sizeOptions }) => {
       </select>
 
       {/* Quantity Selector with + / - Buttons */}
-      <div className="flex items-center mt-2">
+      <div className="flex flex-wrap justify-center items-center mt-2">
         <span className="text-sm mr-2">Quantity:</span>
-        <button
-          className="px-3 py-1 bg-gray-200 text-black rounded-l-md"
-          onClick={() => setQuantity((prev) => Math.max(1, prev - 1))}
-        >
-          -
-        </button>
-        <input
-          type="text"
-          className="w-12 p-1 border text-center text-sm"
-          value={quantity}
-          readOnly
-        />
-        <button
-          className="px-3 py-1 bg-gray-200 text-black rounded-r-md"
-          onClick={() => setQuantity((prev) => prev + 1)}
-        >
-          +
-        </button>
+        <div  className="flex items-center">
+          <button
+            className="px-3 py-1 bg-gray-200 text-black rounded-l-md"
+            onClick={() => setQuantity((prev) => Math.max(1, prev - 1))}
+          >-</button>
+          <input
+            type="text"
+            className="w-8  p-1 border text-center text-sm"
+            value={quantity}
+            readOnly
+          />
+          <button
+            className="px-3 py-1 bg-gray-200 text-black rounded-r-md"
+            onClick={() => setQuantity((prev) => prev + 1)}
+          >
+            +
+          </button>
+        </div>
+
       </div>
 
       {/* Add to Cart Button */}

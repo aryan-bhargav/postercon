@@ -1,6 +1,6 @@
 const Footer = () => {
     return (
-      <footer className="bg-black text-white py-6 mt-10">
+      <footer className="bg-black bottom-0 w-full text-white py-6 mt-10">
         <div className="max-w-6xl mx-auto text-center">
           <h2 className="text-xl font-bold">PosterCon</h2>
           <p className="text-gray-400 mt-2">Your go-to place for the best posters!</p>

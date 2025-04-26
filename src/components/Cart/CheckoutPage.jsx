@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import emailjs from "@emailjs/browser";
+import { v4 as uuidv4 } from "uuid";
 
 const CheckoutPage = () => {
   const [formData, setFormData] = useState({
@@ -18,7 +19,6 @@ const CheckoutPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Retrieve cart details
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
     if (cart.length === 0) {
@@ -26,49 +26,41 @@ const CheckoutPage = () => {
       return;
     }
 
-    // Prepare order details
+    const orderId = "ORD-" + uuidv4().split("-")[0].toUpperCase();
+
     const orderDetails = {
       customer: formData,
-      cart: cart,
+      cart,
+      orderId,
     };
 
-    // Save order to localStorage
     localStorage.setItem("order", JSON.stringify(orderDetails));
-    localStorage.removeItem("cart"); // Clear cart after placing order
+    localStorage.removeItem("cart");
 
-    // Format order details for email
-    const formattedOrder = cart
-      .map((item, index) => `${index + 1}. ${item.name} - Rs. ${item.price}`)
-      .join("\n");
-
-    // EmailJS parameters
     const emailParams = {
-      to_email: formData.email, // Important!
+      to_email: formData.email,
       customer_name: formData.name,
       customer_email: formData.email,
       customer_address: formData.address,
       order_details: cart
-        .map((item) => `• ${item.name} - Rs. ${item.price}`)
+        .map((item, i) => `${i + 1}. ${item.name} - Rs. ${item.price}`)
         .join("\n"),
       total_price: cart.reduce((sum, item) => sum + item.price, 0),
+      order_id: orderId,
     };
-    
 
-    console.log("Email Parameters:", emailParams); // Debugging log
-
-    // Send email using EmailJS
     try {
       const response = await emailjs.send(
-        "service_is904y6", // Replace with your EmailJS Service ID
-        "template_uendurd", // Replace with your EmailJS Template ID
+        "service_ggtfy2a",     // Replace with your EmailJS service ID
+        "template_zvpox6h",    // Replace with your EmailJS template ID
         emailParams,
-        "MI8kXmU2LUBO1pA1e" // Replace with your EmailJS Public Key
+        "rKaI1-AKQsxXHO6bP"     // Replace with your EmailJS public key
       );
-      console.log("Email sent successfully!", response);
+      console.log("✅ Email sent successfully!", response);
       navigate("/order-success");
     } catch (error) {
-      console.error("Error sending email:", error);
-      alert("Failed to send order confirmation. Please try again.");
+      console.error("❌ Failed to send email:", error);
+      alert("Failed to send order confirmation email. Please try again.");
     }
   };
 

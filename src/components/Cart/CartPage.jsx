@@ -15,10 +15,10 @@ const CartPage = () => {
     localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
 
-  const totalAmount = cart.reduce((sum, item) => sum + item.price, 0);
+  const totalAmount = cart.reduce((sum, item) => parseFloat(sum) + parseFloat(item.price), 0);
 
   return (
-    <div className="p-6 max-w-3xl mx-auto">
+    <div className="p-6 max-w-3xl h-screen mx-auto">
       <h1 className="text-3xl font-bold mb-4">Shopping Cart</h1>
 
       {cart.length === 0 ? (
