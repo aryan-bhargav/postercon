@@ -4,7 +4,7 @@ import animeData from "../data/anime";
 import artistsData from "../data/artists";
 import carsData from "../data/cars";
 import gamesData from "../data/games"
-
+import "../App.css"
 const subCategoryData = {
   anime: animeData,
   artists: artistsData,

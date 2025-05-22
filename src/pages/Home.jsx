@@ -4,7 +4,7 @@
 
 
 
-
+import "../App.css"
 import Carousel from "../components/Carousel";
 import CategoryListHome from "../components/Home/CategoryListHome";
 import CategoryList from "../components/CategoryList";
@@ -22,7 +22,7 @@ const Home = () => {
   ];
 
   return (
-    <div>
+    <div className="bg-white text-gray-900 dark:bg-black/95 dark:text-gray-100 transition-colors duration-500">
       <Carousel images={images} />
       <Marquee/>
       <CategoryList />

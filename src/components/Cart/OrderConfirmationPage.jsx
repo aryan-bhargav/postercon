@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import OrderPDFGenerator from "./OrderPDFGenerator";
 import { v4 as uuidv4 } from "uuid";
-
+import "../../App.css"
 const OrderConfirmationPage = () => {
   const [orderDetails, setOrderDetails] = useState(null);
   const [orderId, setOrderId] = useState("");

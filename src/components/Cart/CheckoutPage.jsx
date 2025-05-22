@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import emailjs from "@emailjs/browser";
 import { v4 as uuidv4 } from "uuid";
-
+import "../../App.css"
 const CheckoutPage = () => {
   const [formData, setFormData] = useState({
     name: "",

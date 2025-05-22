@@ -4,7 +4,7 @@ import moviesData from "../data/movies";
 import artistsData from "../data/artists";
 import carsData from "../data/cars";
 import gamesData from "../data/games"
-
+import "../App.css"
 const categoryData = {
   anime: animeData,
   movies: moviesData,

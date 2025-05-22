@@ -1,3 +1,4 @@
+import "../App.css"
 const Footer = () => {
     return (
       <footer className="bg-black bottom-0 w-full text-white py-6 mt-10">

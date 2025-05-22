@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import ad1 from "../assets/carousel/AD1.jpg";
 import ad2 from "../assets/carousel/AD2.jpg";
-
+import "../App.css"
 const Carousel = () => {
   const images = [ad1, ad2];
   const [current, setCurrent] = useState(0);
@@ -17,59 +17,86 @@ const Carousel = () => {
 
   const startAutoPlay = () => {
     clearInterval(intervalRef.current);
-    intervalRef.current = setInterval(nextSlide, 5000);
+    intervalRef.current = setInterval(nextSlide, 7000);
   };
 
   const pauseAutoPlay = () => clearInterval(intervalRef.current);
 
   return (
     <div
-      className="relative w-full mx-auto overflow-hidden rounded-xl shadow-lg"
+      className="relative w-full h-screen overflow-hidden bg-black"
       onMouseEnter={pauseAutoPlay}
       onMouseLeave={startAutoPlay}
     >
-      {/* Slide */}
-      <div className="w-full aspect-[16/7] sm:aspect-[16/6] md:aspect-[16/5] lg:aspect-[16/4] relative">
+      {/* Image */}
+      <div className="absolute top-0 left-0 w-full h-full">
         <img
           src={images[current]}
           alt={`Slide ${current + 1}`}
-          className="w-full h-full object-cover transition-opacity duration-700"
+          className="w-full h-full object-top object-cover transition-opacity duration-700"
         />
-        {/* Fade Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/40 to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent" />
+      </div>
+
+      {/* Overlay Text */}
+      <div className="absolute inset-0 flex flex-col justify-between p-6 md:p-12 text-white">
+        <div className="flex justify-between items-start">
+          {/* Left block */}
+          <div className="space-y-2 max-w-xl">
+            <div className="text-xl md:text-2xl">★★★★</div>
+            <div className="text-3xl md:text-5xl font-bold leading-tight">
+              TRANSFORM YOUR <br /> SPACE WITH <br />
+              <span className="text-orange-400">PREMIUM POSTERS!</span>
+            </div>
+          </div>
+
+          {/* Right Price block */}
+          <div className="text-right max-w-xs">
+            <div className="text-md md:text-lg font-semibold">GET YOURS STARTING AT</div>
+            <div className="text-6xl md:text-8xl font-extrabold leading-none">₹89</div>
+            <button className="mt-4 px-6 py-3 bg-white text-black font-bold rounded shadow-md hover:bg-gray-100 transition">
+              BUY NOW
+            </button>
+          </div>
+        </div>
+
+        {/* Bottom offers */}
+        <div className="flex flex-wrap gap-6 justify-center text-xs md:text-base font-semibold mt-8">
+          <div>BUY 3 GET 1 FREE</div>
+          <div>BUY 5 GET 2 FREE</div>
+          <div>FREE DELIVERY*</div>
+        </div>
       </div>
 
       {/* Arrows */}
       <button
-        className="absolute left-4 top-1/2 -translate-y-1/2 group"
+        className="absolute left-6 top-1/2 -translate-y-1/2 z-10 group"
         onClick={prevSlide}
         aria-label="Previous"
       >
-        <div className="w-10 h-10 rounded-full bg-white/20 dark:bg-black/30 backdrop-blur flex items-center justify-center text-white transition-all group-hover:bg-white/30">
-          <span className="text-xl group-hover:-translate-x-1 transition-transform duration-300">←</span>
+        <div className="w-11 h-11 rounded-full bg-white/20 dark:bg-black/30 backdrop-blur flex items-center justify-center text-white transition-all group-hover:bg-white/30">
+          <span className="text-2xl group-hover:-translate-x-1 transition-transform duration-300">←</span>
         </div>
       </button>
 
       <button
-        className="absolute right-4 top-1/2 -translate-y-1/2 group"
+        className="absolute right-6 top-1/2 -translate-y-1/2 z-10 group"
         onClick={nextSlide}
         aria-label="Next"
       >
-        <div className="w-10 h-10 rounded-full bg-white/20 dark:bg-black/30 backdrop-blur flex items-center justify-center text-white transition-all group-hover:bg-white/30">
-          <span className="text-xl group-hover:translate-x-1 transition-transform duration-300">→</span>
+        <div className="w-11 h-11 rounded-full bg-white/20 dark:bg-black/30 backdrop-blur flex items-center justify-center text-white transition-all group-hover:bg-white/30">
+          <span className="text-2xl group-hover:translate-x-1 transition-transform duration-300">→</span>
         </div>
       </button>
 
       {/* Dots */}
-      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 flex gap-2">
         {images.map((_, index) => (
           <button
             key={index}
             onClick={() => setCurrent(index)}
             className={`w-3 h-3 rounded-full transition ${
-              current === index
-                ? "bg-white scale-125 shadow"
-                : "bg-gray-400 dark:bg-gray-600"
+              current === index ? "bg-white scale-125 shadow" : "bg-gray-400 dark:bg-gray-600"
             }`}
             aria-label={`Go to slide ${index + 1}`}
           />

@@ -1,57 +1,142 @@
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
+import { FaBars, FaTimes, FaShoppingCart } from "react-icons/fa";
+import ThemeToggler from "./ThemeToggler"; 
+import "../App.css"
+const navItems = [
+  { name: "Home", link: "/" },
+  { name: "Collections", link: "/collections" },
+  { name: "About", link: "/about" },
+  { name: "Contact", link: "/contact" },
+];
+
+function cn(...classes) {
+  return classes.filter(Boolean).join(" ");
+}
 
 const Header = () => {
+  const ref = useRef(null);
+  const { scrollY } = useScroll({ target: ref, offset: ["start start", "end start"] });
+  const [visible, setVisible] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const [cartCount, setCartCount] = useState(0);
+  const [hovered, setHovered] = useState(null);
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    setVisible(latest > 100);
+  });
 
   useEffect(() => {
-    // Function to update cart count
     const updateCartCount = () => {
       const cart = JSON.parse(localStorage.getItem("cart")) || [];
       setCartCount(cart.length);
     };
-
-    // Initial cart count load
     updateCartCount();
-
-    // Listen for cart updates
     window.addEventListener("cartUpdated", updateCartCount);
-
-    return () => {
-      window.removeEventListener("cartUpdated", updateCartCount);
-    };
+    return () => window.removeEventListener("cartUpdated", updateCartCount);
   }, []);
 
   return (
-    <header className="bg-white shadow-md py-4 px-6 flex justify-between items-center">
-      <Link to="/" className="text-2xl font-bold text-black">
-        Poster<span className="text-red-500">Con</span>
-      </Link>
-
-      <nav className="hidden md:flex space-x-6">
-        <Link to="/" className="hover:text-red-500">Home</Link>
-        <Link to="/collections" className="hover:text-red-500">Collections</Link>
-        <Link to="/about" className="hover:text-red-500">About</Link>
-        <Link to="/contact" className="hover:text-red-500">Contact</Link>
-      </nav>
-
-      {/* Cart Icon */}
-      <div className="flex items-center space-x-4">
-        <Link to="/cart" className="relative">
-          <span className="text-2xl">🛒</span>
-          {cartCount > 0 && (
-            <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
-              {cartCount}
-            </span>
-          )}
+    <motion.header
+      ref={ref}
+      className={cn(
+        "sticky top-0 z-50 w-full backdrop-blur-sm transition-shadow bg-white/80 dark:bg-black/85",
+        visible ? "shadow-lg" : "shadow-none"
+      )}
+      initial={false}
+      animate={{ y: visible ? 0 : -10 }}
+    >
+      <div className="mx-auto max-w-7xl flex items-center justify-between px-4 py-3 md:py-4">
+        {/* Logo */}
+        <Link
+          to="/"
+          className="flex items-center space-x-2 text-2xl font-bold text-black dark:text-white"
+        >
+          <img
+            src="https://assets.aceternity.com/logo-dark.png"
+            alt="logo"
+            width={30}
+            height={30}
+            className="invert dark:invert-0"
+          />
+          <span>
+            Poster<span className="text-red-500">Con</span>
+          </span>
         </Link>
 
-        {/* Mobile Menu Button */}
-        <div className="md:hidden">
-          <button className="text-2xl">☰</button>
+        {/* Desktop nav */}
+        <nav className="hidden lg:flex space-x-6 font-medium text-neutral-600 dark:text-neutral-300">
+          {navItems.map((item, idx) => (
+            <Link
+              key={item.name}
+              to={item.link}
+              className="relative px-4 py-2 rounded-full hover:text-red-500"
+              onMouseEnter={() => setHovered(idx)}
+              onMouseLeave={() => setHovered(null)}
+            >
+              {hovered === idx && (
+                <motion.div
+                  layoutId="hoverBg"
+                  className="absolute inset-0 rounded-full bg-gray-100 dark:bg-neutral-800"
+                  style={{ zIndex: -1 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                />
+              )}
+              <span className="relative z-10">{item.name}</span>
+            </Link>
+          ))}
+        </nav>
+
+        {/* Cart + Theme Toggle + Mobile Menu */}
+        <div className="flex items-center space-x-4">
+          <ThemeToggler />
+
+          <Link to="/cart" className="relative text-2xl text-black dark:text-white">
+            <FaShoppingCart />
+            {cartCount > 0 && (
+              <span className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs font-bold text-white">
+                {cartCount}
+              </span>
+            )}
+          </Link>
+
+          <button
+            className="lg:hidden text-2xl text-black dark:text-white"
+            onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label="Toggle menu"
+          >
+            {mobileOpen ? <FaTimes /> : <FaBars />}
+          </button>
         </div>
       </div>
-    </header>
+
+      {/* Mobile menu */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.nav
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="lg:hidden bg-white dark:bg-neutral-900 px-4 py-6 shadow-lg"
+          >
+            <ul className="flex flex-col space-y-4 font-medium text-neutral-700 dark:text-neutral-300">
+              {navItems.map((item) => (
+                <li key={item.name}>
+                  <Link
+                    to={item.link}
+                    onClick={() => setMobileOpen(false)}
+                    className="block px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-neutral-800"
+                  >
+                    {item.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </motion.nav>
+        )}
+      </AnimatePresence>
+    </motion.header>
   );
 };
 

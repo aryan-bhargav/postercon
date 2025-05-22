@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import "../App.css"
 const PosterCard = ({ name, path, price, originalPrice, sizeOptions }) => {
   const [selectedSize, setSelectedSize] = useState(sizeOptions[0]);
   const [quantity, setQuantity] = useState(1);
