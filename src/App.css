@@ -3,6 +3,15 @@
 @theme {
   --breakpoint-xs: 52.625rem;
 }
+.bg-page {
+  @apply bg-white dark:bg-black/95;
+}
+
+.text-page {
+  @apply text-gray-900 dark:text-gray-100;
+}
+
+
 body {
     margin: 0;
     padding: 0;

@@ -7,7 +7,7 @@ import "../App.css"
 const navItems = [
   { name: "Home", link: "/" },
   { name: "Collections", link: "/collections" },
-  { name: "About", link: "/about" },
+  { name: "About", link: "/about-us" },
   { name: "Contact", link: "/contact" },
 ];
 
@@ -41,17 +41,17 @@ const Header = () => {
     <motion.header
       ref={ref}
       className={cn(
-        "sticky top-0 z-50 w-full backdrop-blur-sm transition-shadow bg-white/80 dark:bg-black/85",
+        "sticky top-0 z-50 w-full backdrop-blur-sm transition-shadow bg-page",
         visible ? "shadow-lg" : "shadow-none"
       )}
       initial={false}
       animate={{ y: visible ? 0 : -10 }}
     >
-      <div className="mx-auto max-w-7xl flex items-center justify-between px-4 py-3 md:py-4">
+      <div className="mx-auto max-w-7xl flex items-center justify-between px-4 md:py-4">
         {/* Logo */}
         <Link
           to="/"
-          className="flex items-center space-x-2 text-2xl font-bold text-black dark:text-white"
+          className="flex items-center space-x-2 text-2xl font-bold text-page"
         >
           <img
             src="https://assets.aceternity.com/logo-dark.png"
@@ -92,7 +92,7 @@ const Header = () => {
         <div className="flex items-center space-x-4">
           <ThemeToggler />
 
-          <Link to="/cart" className="relative text-2xl text-black dark:text-white">
+          <Link to="/cart" className="relative text-2xl text-page">
             <FaShoppingCart />
             {cartCount > 0 && (
               <span className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs font-bold text-white">
@@ -102,7 +102,7 @@ const Header = () => {
           </Link>
 
           <button
-            className="lg:hidden text-2xl text-black dark:text-white"
+            className="lg:hidden text-2xl text-page"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle menu"
           >

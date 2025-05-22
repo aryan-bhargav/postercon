@@ -24,7 +24,7 @@ const Carousel = () => {
 
   return (
     <div
-      className="relative w-full h-screen overflow-hidden bg-black"
+      className="relative w-full h-screen overflow-hidden bg-page"
       onMouseEnter={pauseAutoPlay}
       onMouseLeave={startAutoPlay}
     >
