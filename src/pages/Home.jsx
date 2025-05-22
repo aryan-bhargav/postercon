@@ -13,7 +13,7 @@ import BestSelling from "../components/Home/BestSelling"
 import Collections from "../components/Home/Collections";
 import WhyChooseUs from "../components/Home/WhyChooseUs";
 import FAQ from "../components/Home/FAQ";
-
+import InfiniteMovingCards from "../components/Home/InfiniteMovingCards"
 const Home = () => {
   const images = [
     "/banners/offer1.jpg",
@@ -30,6 +30,7 @@ const Home = () => {
       <Collections/>
       <WhyChooseUs/>
       <FAQ/>
+      <InfiniteMovingCards speed={40}/>
     </div>
   );
 };
