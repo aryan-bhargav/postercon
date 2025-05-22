@@ -3,8 +3,9 @@ import animeData from "../data/anime";
 import moviesData from "../data/movies";
 import artistsData from "../data/artists";
 import carsData from "../data/cars";
-import gamesData from "../data/games"
-import "../App.css"
+import gamesData from "../data/games";
+import "../App.css";
+
 const categoryData = {
   anime: animeData,
   movies: moviesData,
@@ -18,12 +19,12 @@ const CategoryPage = () => {
   const data = categoryData[category] || [];
 
   return (
-    <div className="min-h-screen bg-gray-50 py-10">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-10">
       <div className="text-center">
-        <h1 className="text-4xl font-extrabold text-gray-900 uppercase tracking-wide">
+        <h1 className="text-4xl font-extrabold text-gray-900 dark:text-gray-100 uppercase tracking-wide">
           Shop by {category.charAt(0).toUpperCase() + category.slice(1)}
         </h1>
-        <p className="text-gray-600 mt-2 text-lg">
+        <p className="text-gray-600 dark:text-gray-300 mt-2 text-lg">
           Discover posters from your favorite {category} collections
         </p>
       </div>
@@ -34,16 +35,16 @@ const CategoryPage = () => {
             <Link
               key={index}
               to={`/category/${category}/${item.name.toLowerCase().replace(/\s+/g, "-")}`}
-              className="relative w-44 h-96 md:w-72 lg:w-80 bg-gray-900 text-white rounded-lg overflow-hidden shadow-lg transform transition-transform hover:scale-105"
+              className="relative w-44 h-96 md:w-72 lg:w-80 bg-gray-900 dark:bg-gray-800 text-white rounded-lg overflow-hidden shadow-lg transform transition-transform hover:scale-105"
             >
-              {item.image && ( // ✅ Fix: Check if "image" exists before rendering
+              {item.image && (
                 <img
                   src={item.image}
                   alt={item.name}
                   className="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity"
                 />
               )}
-              <div className="absolute inset-0 flex flex-col justify-center items-center bg-black bg-opacity-50">
+              <div className="absolute inset-0 flex flex-col justify-center items-center bg-black bg-opacity-50 dark:bg-opacity-70">
                 <h3 className="text-xl font-bold">{item.name}</h3>
                 <button className="mt-2 text-sm uppercase tracking-wide border border-white px-4 py-1 rounded hover:bg-white hover:text-black transition">
                   Explore

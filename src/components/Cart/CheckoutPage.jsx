@@ -2,7 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import emailjs from "@emailjs/browser";
 import { v4 as uuidv4 } from "uuid";
-import "../../App.css"
+import "../../App.css";
+
 const CheckoutPage = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -51,10 +52,10 @@ const CheckoutPage = () => {
 
     try {
       const response = await emailjs.send(
-        "service_ggtfy2a",     // Replace with your EmailJS service ID
-        "template_zvpox6h",    // Replace with your EmailJS template ID
+        "service_ggtfy2a", // Replace with your EmailJS service ID
+        "template_zvpox6h", // Replace with your EmailJS template ID
         emailParams,
-        "rKaI1-AKQsxXHO6bP"     // Replace with your EmailJS public key
+        "rKaI1-AKQsxXHO6bP" // Replace with your EmailJS public key
       );
       console.log("✅ Email sent successfully!", response);
       navigate("/order-success");
@@ -65,7 +66,7 @@ const CheckoutPage = () => {
   };
 
   return (
-    <div className="p-6 max-w-md mx-auto">
+    <div className="p-6 max-w-md mx-auto bg-white dark:bg-neutral-900 text-gray-900 dark:text-gray-100 min-h-screen">
       <h1 className="text-3xl font-bold mb-4">Checkout</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
@@ -74,7 +75,7 @@ const CheckoutPage = () => {
           placeholder="Full Name"
           value={formData.name}
           onChange={handleChange}
-          className="w-full p-2 border rounded"
+          className="w-full p-2 border border-gray-300 dark:border-gray-700 rounded bg-white dark:bg-neutral-800 text-gray-900 dark:text-gray-100"
           required
         />
         <input
@@ -83,7 +84,7 @@ const CheckoutPage = () => {
           placeholder="Email"
           value={formData.email}
           onChange={handleChange}
-          className="w-full p-2 border rounded"
+          className="w-full p-2 border border-gray-300 dark:border-gray-700 rounded bg-white dark:bg-neutral-800 text-gray-900 dark:text-gray-100"
           required
         />
         <textarea
@@ -91,12 +92,12 @@ const CheckoutPage = () => {
           placeholder="Delivery Address"
           value={formData.address}
           onChange={handleChange}
-          className="w-full p-2 border rounded"
+          className="w-full p-2 border border-gray-300 dark:border-gray-700 rounded bg-white dark:bg-neutral-800 text-gray-900 dark:text-gray-100"
           required
         ></textarea>
         <button
           type="submit"
-          className="w-full bg-black text-white py-2 rounded-md font-semibold hover:opacity-90"
+          className="w-full bg-black dark:bg-white dark:text-black text-white py-2 rounded-md font-semibold hover:opacity-90 transition-colors"
         >
           Place Order
         </button>
