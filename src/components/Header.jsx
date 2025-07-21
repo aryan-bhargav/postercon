@@ -1,9 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
+import {
+  motion,
+  AnimatePresence,
+  useScroll,
+  useMotionValueEvent,
+} from "framer-motion";
 import { FaBars, FaTimes, FaShoppingCart } from "react-icons/fa";
-import ThemeToggler from "./ThemeToggler"; 
-import "../App.css"
+import ThemeToggler from "./ThemeToggler";
+import "../App.css";
+
 const navItems = [
   { name: "Home", link: "/" },
   { name: "Collections", link: "/collections" },
@@ -39,30 +45,26 @@ const Header = () => {
 
   return (
     <motion.header
-      ref={ref}
-      className={cn(
-        "sticky top-0 z-50 w-full backdrop-blur-sm transition-shadow bg-page",
-        visible ? "shadow-lg" : "shadow-none"
-      )}
-      initial={false}
-      animate={{ y: visible ? 0 : -10 }}
-    >
-      <div className="mx-auto max-w-7xl flex items-center justify-between px-4 md:py-4">
+  ref={ref}
+  className={cn(
+    "fixed left-4 right-4 z-50 mx-auto max-w-7xl px-4 py-3 rounded-xl transition-all duration-300 backdrop-blur-md bg-black/80",
+    visible ? "top-0 shadow-2xl" : "top-4 shadow-md"
+  )}
+  initial={false}
+  animate={{ y: 0 }} // optional
+>
+
+
+      <div className="flex items-center justify-between">
         {/* Logo */}
-        <Link
-          to="/"
-          className="flex items-center space-x-2 text-2xl font-bold text-page"
-        >
+        <Link to="/" className="flex items-center space-x-2 text-2xl font-bold text-page">
           <img
-            src="https://assets.aceternity.com/logo-dark.png"
+            src="/logo.png"
             alt="logo"
-            width={30}
-            height={30}
-            className="invert dark:invert-0"
+            width={100}
+            height={100}
+            className=""
           />
-          <span>
-            Poster<span className="text-red-500">Con</span>
-          </span>
         </Link>
 
         {/* Desktop nav */}
@@ -115,10 +117,10 @@ const Header = () => {
       <AnimatePresence>
         {mobileOpen && (
           <motion.nav
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: 0 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="lg:hidden bg-white dark:bg-neutral-900 px-4 py-6 shadow-lg"
+            exit={{ opacity: 0, y: 0 }}
+            className="lg:hidden bg-white dark:bg-neutral-900 px-4 py-6 mt-4 top-4 rounded-xl shadow-lg"
           >
             <ul className="flex flex-col space-y-4 font-medium text-neutral-700 dark:text-neutral-300">
               {navItems.map((item) => (
