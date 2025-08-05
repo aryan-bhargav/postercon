@@ -1,16 +1,9 @@
-
-
-
-
-
-
 import "../App.css"
 import Carousel from "../components/Carousel";
 import CategoryListHome from "../components/Home/CategoryListHome";
 import CategoryList from "../components/CategoryList";
 import Marquee from "../components/Home/Marquee";
 import BestSelling from "../components/Home/BestSelling"
-import Collections from "../components/Home/Collections";
 import WhyChooseUs from "../components/Home/WhyChooseUs";
 import FAQ from "../components/Home/FAQ";
 import InfiniteMovingCards from "../components/Home/InfiniteMovingCards"
@@ -27,7 +20,6 @@ const Home = () => {
       <Marquee/>
       <CategoryList />
       <BestSelling/>
-      <Collections/>
       <WhyChooseUs/>
       <FAQ/>
       <InfiniteMovingCards speed={40}/>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import "../../App.css";
+import "../App.css";
 
 const CartPage = () => {
   const [cart, setCart] = useState([]);
@@ -21,8 +21,12 @@ const CartPage = () => {
     0
   );
 
-  return (
-    <div className="p-6 max-w-3xl h-screen mx-auto bg-white dark:bg-neutral-900 text-gray-900 dark:text-gray-100">
+  return (<>
+    <br />
+    <br />
+    <br />
+    <div className="p-6 max-w-3xl t-45 h-screen mx-auto  text-gray-900 dark:text-gray-100">
+
       <h1 className="text-3xl font-bold mb-4">Shopping Cart</h1>
 
       {cart.length === 0 ? (
@@ -70,6 +74,7 @@ const CartPage = () => {
         </>
       )}
     </div>
+  </>
   );
 };
 

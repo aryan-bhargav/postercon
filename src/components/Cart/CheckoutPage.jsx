@@ -8,7 +8,10 @@ const CheckoutPage = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    address: "",
+    street: "",
+    city: "",
+    state: "",
+    pincode: "",
   });
 
   const navigate = useNavigate();
@@ -17,8 +20,49 @@ const CheckoutPage = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const validateForm = () => {
+    const nameRegex = /^[A-Za-z\s]{2,}$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const cityStateRegex = /^[A-Za-z\s]+$/;
+    const pincodeRegex = /^\d{6}$/;
+
+    if (!nameRegex.test(formData.name)) {
+      alert("Please enter a valid name (only letters, min 2 characters).");
+      return false;
+    }
+
+    if (!emailRegex.test(formData.email)) {
+      alert("Please enter a valid email address.");
+      return false;
+    }
+
+    if (formData.street.trim().length < 3) {
+      alert("Please enter a valid street address.");
+      return false;
+    }
+
+    if (!cityStateRegex.test(formData.city)) {
+      alert("Please enter a valid city name (only letters).");
+      return false;
+    }
+
+    if (!cityStateRegex.test(formData.state)) {
+      alert("Please enter a valid state name (only letters).");
+      return false;
+    }
+
+    if (!pincodeRegex.test(formData.pincode)) {
+      alert("Pincode must be exactly 6 digits.");
+      return false;
+    }
+
+    return true;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!validateForm()) return;
 
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
@@ -28,9 +72,13 @@ const CheckoutPage = () => {
     }
 
     const orderId = "ORD-" + uuidv4().split("-")[0].toUpperCase();
+    const fullAddress = `${formData.street}, ${formData.city}, ${formData.state} - ${formData.pincode}`;
 
     const orderDetails = {
-      customer: formData,
+      customer: {
+        ...formData,
+        fullAddress,
+      },
       cart,
       orderId,
     };
@@ -42,7 +90,7 @@ const CheckoutPage = () => {
       to_email: formData.email,
       customer_name: formData.name,
       customer_email: formData.email,
-      customer_address: formData.address,
+      customer_address: fullAddress,
       order_details: cart
         .map((item, i) => `${i + 1}. ${item.name} - Rs. ${item.price}`)
         .join("\n"),
@@ -52,10 +100,10 @@ const CheckoutPage = () => {
 
     try {
       const response = await emailjs.send(
-        "service_ggtfy2a", // Replace with your EmailJS service ID
-        "template_zvpox6h", // Replace with your EmailJS template ID
+        "service_ggtfy2a",
+        "template_zvpox6h",
         emailParams,
-        "rKaI1-AKQsxXHO6bP" // Replace with your EmailJS public key
+        "rKaI1-AKQsxXHO6bP"
       );
       console.log("✅ Email sent successfully!", response);
       navigate("/order-success");
@@ -65,8 +113,11 @@ const CheckoutPage = () => {
     }
   };
 
-  return (
-    <div className="p-6 max-w-md mx-auto bg-white dark:bg-neutral-900 text-gray-900 dark:text-gray-100 min-h-screen">
+  return (<>
+    <br />
+    <br />
+    <br />
+    <div className="p-6 t-45 max-w-md mx-auto  text-gray-900 dark:text-gray-100 min-h-screen">
       <h1 className="text-3xl font-bold mb-4">Checkout</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
@@ -75,8 +126,8 @@ const CheckoutPage = () => {
           placeholder="Full Name"
           value={formData.name}
           onChange={handleChange}
-          className="w-full p-2 border border-gray-300 dark:border-gray-700 rounded bg-white dark:bg-neutral-800 text-gray-900 dark:text-gray-100"
           required
+          className="input-class"
         />
         <input
           type="email"
@@ -84,17 +135,45 @@ const CheckoutPage = () => {
           placeholder="Email"
           value={formData.email}
           onChange={handleChange}
-          className="w-full p-2 border border-gray-300 dark:border-gray-700 rounded bg-white dark:bg-neutral-800 text-gray-900 dark:text-gray-100"
           required
+          className="input-class"
         />
-        <textarea
-          name="address"
-          placeholder="Delivery Address"
-          value={formData.address}
+        <input
+          type="text"
+          name="street"
+          placeholder="Street Address"
+          value={formData.street}
           onChange={handleChange}
-          className="w-full p-2 border border-gray-300 dark:border-gray-700 rounded bg-white dark:bg-neutral-800 text-gray-900 dark:text-gray-100"
           required
-        ></textarea>
+          className="input-class"
+        />
+        <input
+          type="text"
+          name="city"
+          placeholder="City"
+          value={formData.city}
+          onChange={handleChange}
+          required
+          className="input-class"
+        />
+        <input
+          type="text"
+          name="state"
+          placeholder="State"
+          value={formData.state}
+          onChange={handleChange}
+          required
+          className="input-class"
+        />
+        <input
+          type="text"
+          name="pincode"
+          placeholder="Pincode"
+          value={formData.pincode}
+          onChange={handleChange}
+          required
+          className="input-class"
+        />
         <button
           type="submit"
           className="w-full bg-black dark:bg-white dark:text-black text-white py-2 rounded-md font-semibold hover:opacity-90 transition-colors"
@@ -103,6 +182,7 @@ const CheckoutPage = () => {
         </button>
       </form>
     </div>
+  </>
   );
 };
 

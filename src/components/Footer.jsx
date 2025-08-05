@@ -1,5 +1,5 @@
 import "../App.css";
-
+import { Link } from "react-router-dom";
 const Footer = () => {
   return (
     <footer className="bg-page text-page bottom-0 w-full py-6 ">
@@ -9,9 +9,8 @@ const Footer = () => {
           Your go-to place for the best posters!
         </p>
         <div className="flex justify-center space-x-6 mt-4">
-          <a href="#" className="hover:text-red-500">
-            Privacy Policy
-          </a>
+           <Link to="/privacy" className="flex items-center space-x-2 text-2xl font-bold text-page hover:text-red-500">Privacy Policy</Link>
+          
           <a href="#" className="hover:text-red-500">
             Terms of Service
           </a>

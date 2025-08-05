@@ -9,7 +9,7 @@ const BestSelling = () => {
     <section className="w-full py-10">
       {/* Section Title */}
       <h2 className="text-center text-3xl font-bold mb-8">
-        <span className="text-black">BEST</span>{" "}
+        <span className="dark:text-white text-black">BEST</span>{" "}
         <span className="text-red-600">SELLING</span>
       </h2>
 
