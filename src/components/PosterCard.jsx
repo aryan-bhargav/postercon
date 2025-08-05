@@ -36,7 +36,7 @@ const PosterCard = ({ name, path, price, originalPrice, sizeOptions }) => {
   };
 
   return (
-    <div className="p-4 bg-white dark:bg-gray-800 shadow-md dark:shadow-gray-700 rounded-lg relative">
+    <div className="p-4  bg-white dark:bg-gray-800 shadow-md dark:shadow-gray-700 rounded-lg relative">
       {/* Poster Image */}
       <div
         className="relative w-full overflow-hidden"

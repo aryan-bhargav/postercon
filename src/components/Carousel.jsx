@@ -23,7 +23,11 @@ const Carousel = () => {
 
   const pauseAutoPlay = () => clearInterval(intervalRef.current);
 
-  return (
+  return (<>
+  
+    <div className="absolute top-0 left-0 w-full h-24 bg-gradient-to-b from-black to-transparent z-20 pointer-events-none"></div>
+
+
     <div
       className="relative bg-page overflow-hidden mx-auto 
                  w-full max-w-md h-auto rounded-lg 
@@ -31,6 +35,7 @@ const Carousel = () => {
       onMouseEnter={pauseAutoPlay}
       onMouseLeave={startAutoPlay}
     >
+
       {/* Image */}
       <div className="relative w-full h-full">
         <img
@@ -59,7 +64,6 @@ const Carousel = () => {
         <div className="w-10 h-10 rounded-full bg-white/20 dark:bg-black/30 backdrop-blur flex items-center justify-center text-white transition-all group-hover:bg-white/30">
           <span className="text-xl group-hover:-translate-x-1 transition-transform duration-300">
             <img src="/previous.png" alt="" />
-
           </span>
         </div>
       </button>
@@ -82,14 +86,14 @@ const Carousel = () => {
           <button
             key={index}
             onClick={() => setCurrent(index)}
-            className={`w-3 h-3 rounded-full transition ${
-              current === index ? "bg-white scale-125 shadow" : "bg-gray-400 dark:bg-gray-600"
-            }`}
+            className={`w-3 h-3 rounded-full transition ${current === index ? "bg-white scale-125 shadow" : "bg-gray-400 dark:bg-gray-600"
+              }`}
             aria-label={`Go to slide ${index + 1}`}
           />
         ))}
       </div>
     </div>
+  </>
   );
 };
 

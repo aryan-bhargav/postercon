@@ -2,7 +2,7 @@ import React from 'react';
 
 const PrivacyPolicy = () => {
   return (
-    <div className="privacy-policy container mx-45 px-4 py-10 text-left text-page">
+    <div className="privacy-policy min-h-screen mx-45 px-4 py-10 text-left text-page">
       <br />
       <br />
       <br />
@@ -49,7 +49,7 @@ const PrivacyPolicy = () => {
 
       <h2 className="text-2xl font-semibold mt-8 mb-4">🎨 Content Disclaimer</h2>
       <p className='flex flex-wrap'>
-        All posters sold on this site are unofficial artworks or publicly available images. 
+        All posters sold on this site are unofficial artworks or publicly available images.
         <strong> PosterCon does not claim ownership of any characters, logos, or trademarks </strong> featured on its products.
         All intellectual property belongs to their respective owners.
       </p>

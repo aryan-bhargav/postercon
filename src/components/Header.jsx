@@ -47,7 +47,7 @@ const Header = () => {
     <motion.header
   ref={ref}
   className={cn(
-    "fixed left-4 right-4 z-50 mx-auto max-w-7xl px-4 py-3 rounded-xl transition-all duration-300 backdrop-blur-md bg-black/80",
+    "fixed left-4 right-4 z-50 mx-auto max-w-7xl px-4 py-3 rounded-xl transition-all duration-300 backdrop-blur-md bg-gray-400/70  dark:bg-gray-950/80",
     visible ? "top-0 shadow-2xl" : "top-4 shadow-md"
   )}
   initial={false}

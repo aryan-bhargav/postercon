@@ -23,7 +23,6 @@ const CheckoutPage = () => {
   const validateForm = () => {
     const nameRegex = /^[A-Za-z\s]{2,}$/;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const cityStateRegex = /^[A-Za-z\s]+$/;
     const pincodeRegex = /^\d{6}$/;
 
     if (!nameRegex.test(formData.name)) {
@@ -41,13 +40,8 @@ const CheckoutPage = () => {
       return false;
     }
 
-    if (!cityStateRegex.test(formData.city)) {
-      alert("Please enter a valid city name (only letters).");
-      return false;
-    }
-
-    if (!cityStateRegex.test(formData.state)) {
-      alert("Please enter a valid state name (only letters).");
+    if (!formData.city || !formData.state) {
+      alert("Please select both city and state.");
       return false;
     }
 
@@ -94,7 +88,7 @@ const CheckoutPage = () => {
       order_details: cart
         .map((item, i) => `${i + 1}. ${item.name} - Rs. ${item.price}`)
         .join("\n"),
-      total_price: cart.reduce((sum, item) => sum + item.price, 0),
+      total_price: cart.reduce((sum, item) => sum + item.price * item.quantity, 0),
       order_id: orderId,
     };
 
@@ -113,12 +107,9 @@ const CheckoutPage = () => {
     }
   };
 
-  return (<>
-    <br />
-    <br />
-    <br />
-    <div className="p-6 t-45 max-w-md mx-auto  text-gray-900 dark:text-gray-100 min-h-screen">
-      <h1 className="text-3xl font-bold mb-4">Checkout</h1>
+  return (
+    <div className="pt-28 pb-16 px-4 md:px-0 max-w-md mx-auto text-gray-900 dark:text-gray-100 min-h-screen">
+      <h1 className="text-3xl font-bold mb-6 text-center">Checkout</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
           type="text"
@@ -127,7 +118,7 @@ const CheckoutPage = () => {
           value={formData.name}
           onChange={handleChange}
           required
-          className="input-class"
+          className="w-full px-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-800"
         />
         <input
           type="email"
@@ -136,7 +127,7 @@ const CheckoutPage = () => {
           value={formData.email}
           onChange={handleChange}
           required
-          className="input-class"
+          className="w-full px-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-800"
         />
         <input
           type="text"
@@ -145,26 +136,39 @@ const CheckoutPage = () => {
           value={formData.street}
           onChange={handleChange}
           required
-          className="input-class"
+          className="w-full px-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-800"
         />
-        <input
-          type="text"
-          name="city"
-          placeholder="City"
-          value={formData.city}
-          onChange={handleChange}
-          required
-          className="input-class"
-        />
-        <input
-          type="text"
-          name="state"
-          placeholder="State"
-          value={formData.state}
-          onChange={handleChange}
-          required
-          className="input-class"
-        />
+
+        <div className="grid grid-cols-2 gap-4">
+          <select
+            name="city"
+            value={formData.city}
+            onChange={handleChange}
+            className="w-full px-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-800"
+            required
+          >
+            <option value="">Select City</option>
+            <option value="Delhi">Delhi</option>
+            <option value="Noida">Noida</option>
+            <option value="Gurgaon">Gurgaon</option>
+            <option value="Ghaziabad">Ghaziabad</option>
+            <option value="Faridabad">Faridabad</option>
+          </select>
+
+          <select
+            name="state"
+            value={formData.state}
+            onChange={handleChange}
+            className="w-full px-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-800"
+            required
+          >
+            <option value="">Select State</option>
+            <option value="Delhi">Delhi</option>
+            <option value="Uttar Pradesh">Uttar Pradesh</option>
+            <option value="Haryana">Haryana</option>
+          </select>
+        </div>
+
         <input
           type="text"
           name="pincode"
@@ -172,17 +176,17 @@ const CheckoutPage = () => {
           value={formData.pincode}
           onChange={handleChange}
           required
-          className="input-class"
+          className="w-full px-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-800"
         />
+
         <button
           type="submit"
-          className="w-full bg-black dark:bg-white dark:text-black text-white py-2 rounded-md font-semibold hover:opacity-90 transition-colors"
+          className="w-full bg-black dark:bg-white dark:text-black text-white py-3 rounded-lg font-semibold hover:opacity-90 transition"
         >
           Place Order
         </button>
       </form>
     </div>
-  </>
   );
 };
 
