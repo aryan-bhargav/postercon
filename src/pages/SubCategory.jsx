@@ -33,7 +33,7 @@ const SubCategory = () => {
           {subcategory.replace(/-/g, " ")} Posters
         </h1>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6  mx-20 ">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:mx-10 lg:mx-20 ">
           {posters.map((poster, index) => (
             <Link
               key={index}
