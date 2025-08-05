@@ -50,7 +50,6 @@ const Carousel = () => {
       <div className="absolute inset-0 flex flex-col justify-between p-6 md:p-12 text-white">
         <div className="flex justify-between items-start">
           <div className="space-y-2 max-w-xl">
-            <div className="text-xl md:text-2xl">★★★★</div>
           </div>
         </div>
       </div>
@@ -61,7 +60,7 @@ const Carousel = () => {
         onClick={prevSlide}
         aria-label="Previous"
       >
-        <div className="w-10 h-10 rounded-full bg-white/20 dark:bg-black/30 backdrop-blur flex items-center justify-center text-white transition-all group-hover:bg-white/30">
+        <div className="w-10 h-10 rounded-full bg-black/20 dark:bg-white/30 backdrop-blur flex items-center justify-center text-white transition-all group-hover:bg-white/30">
           <span className="text-xl group-hover:-translate-x-1 transition-transform duration-300">
             <img src="/previous.png" alt="" />
           </span>

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const faqs = [
   {
@@ -27,20 +28,41 @@ const FAQ = () => {
   };
 
   return (
-    <div className="py-10 px-5 max-w-3xl mx-auto">
-      <h2 className="text-3xl font-bold text-center uppercase mb-6">FAQs</h2>
+    <div className="py-14 px-4 sm:px-6 md:px-10 lg:px-16 max-w-4xl mx-auto">
+      <h2 className="text-3xl sm:text-4xl font-extrabold text-center mb-10 text-gray-900 dark:text-white">
+        Frequently Asked Questions
+      </h2>
+
       <div className="space-y-4">
         {faqs.map((faq, index) => (
           <div
             key={index}
-            className="border rounded-lg p-4 cursor-pointer"
-            onClick={() => toggleFAQ(index)}
+            className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-sm transition hover:shadow-md"
           >
-            <div className="flex justify-between items-center">
-              <h3 className="font-semibold">{faq.question}</h3>
-              <span className="text-xl">{openIndex === index ? "−" : "+"}</span>
-            </div>
-            {openIndex === index && <p className="mt-2 text-gray-600">{faq.answer}</p>}
+            <button
+              onClick={() => toggleFAQ(index)}
+              className="w-full flex justify-between items-center px-6 py-4 text-left"
+            >
+              <span className="font-medium text-gray-800 dark:text-gray-100">{faq.question}</span>
+              <span className="text-xl text-gray-500 dark:text-gray-400">
+                {openIndex === index ? "−" : "+"}
+              </span>
+            </button>
+
+            <AnimatePresence initial={false}>
+              {openIndex === index && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <div className="px-6 pb-4 text-gray-600 dark:text-gray-300">
+                    {faq.answer}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         ))}
       </div>

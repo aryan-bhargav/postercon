@@ -24,11 +24,11 @@ const SubCategory = () => {
 
   return (
     <>
-      <br />
-      <br />
-      <br />
 
       <div className="p-6 w-full flex flex-col items-center bg-gray-50 dark:bg-gray-900 min-h-screen">
+        <br />
+        <br />
+        <br />
         <h1 className="text-3xl font-bold mb-6 text-gray-900 dark:text-gray-100">
           {subcategory.replace(/-/g, " ")} Posters
         </h1>

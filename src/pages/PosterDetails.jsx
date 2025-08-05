@@ -1,7 +1,6 @@
-import { useParams, useLocation } from "react-router-dom";
+import { useParams, useLocation, useNavigate, Link } from "react-router-dom";
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+
 const PosterDetails = () => {
     const { state } = useLocation();
     const { id } = useParams();
@@ -10,27 +9,53 @@ const PosterDetails = () => {
     const [quantity, setQuantity] = useState(1);
     const [selectedSize, setSelectedSize] = useState("Matte A3 Poster - 12'' x 18''");
     const [showNotification, setShowNotification] = useState(false);
+    const [openSection, setOpenSection] = useState(null);
 
-    const sizes = [
-        "Matte A3 Poster - 12'' x 18''",
-        "Digital Download",
-        "Jumbo Poster - 18'' x 24''",
-        "Laminated Framed - 8'' x 12''",
-    ];
+    const toggleSection = (section) => {
+        setOpenSection((prev) => (prev === section ? null : section));
+    };
+
+    const now = new Date();
+
+    const formatDate = (date) =>
+        date.toLocaleDateString("en-US", {
+            month: "short",
+            day: "2-digit",
+        });
+
+    const cutoffHour = 15;
+    const cutoff = new Date();
+    cutoff.setHours(cutoffHour, 0, 0, 0);
+    const timeDiffMs = cutoff.getTime() - now.getTime();
+
+    let countdownText = "Order cutoff passed for today";
+    if (timeDiffMs > 0) {
+        const hours = Math.floor(timeDiffMs / (1000 * 60 * 60));
+        const minutes = Math.floor((timeDiffMs % (1000 * 60 * 60)) / (1000 * 60));
+        countdownText = `Order within ${hours} Hour${hours !== 1 ? "s" : ""} ${minutes} Minute${minutes !== 1 ? "s" : ""} for same-day dispatch`;
+    }
+
+    const orderedDate = formatDate(now);
+    const readyStart = new Date(now);
+    readyStart.setDate(now.getDate() + 2);
+    const readyEnd = new Date(now);
+    readyEnd.setDate(now.getDate() + 4);
+    const deliveryStart = new Date(now);
+    deliveryStart.setDate(now.getDate() + 4);
+    const deliveryEnd = new Date(now);
+    deliveryEnd.setDate(now.getDate() + 8);
+
+    const sizes = ["Matte A3 Poster - 12'' x 18''"];
 
     const getPriceForSize = (sizeLabel) => {
         const sizePrices = {
-            "Matte A3 Poster - 12'' x 18''": 199,
-            "Digital Download": 99,
-            "Jumbo Poster - 18'' x 24''": 349,
-            "Laminated Framed - 8'' x 12''": 499,
+            "Matte A3 Poster - 12'' x 18''": 99
         };
         return sizePrices[sizeLabel] || poster.price;
     };
 
     const handleBuyItNow = () => {
         const price = getPriceForSize(selectedSize);
-
         let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
         const existingItem = cart.find(
@@ -38,10 +63,8 @@ const PosterDetails = () => {
         );
 
         if (existingItem) {
-            // If already added, just navigate to checkout
             navigate("/checkout");
         } else {
-            // Else, add to cart and then navigate
             cart.push({
                 name: poster.name,
                 path: poster.path,
@@ -51,19 +74,15 @@ const PosterDetails = () => {
             });
 
             localStorage.setItem("cart", JSON.stringify(cart));
-
             window.dispatchEvent(new Event("cartUpdated"));
             setShowNotification(true);
             setTimeout(() => setShowNotification(false), 3000);
-
             navigate("/checkout");
         }
     };
 
-
     const handleAddToCart = () => {
         const price = getPriceForSize(selectedSize);
-
         let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
         const existingItem = cart.find(
@@ -83,12 +102,8 @@ const PosterDetails = () => {
         }
 
         localStorage.setItem("cart", JSON.stringify(cart));
-
         setShowNotification(true);
-        setTimeout(() => {
-            setShowNotification(false);
-        }, 3000);
-
+        setTimeout(() => setShowNotification(false), 3000);
         window.dispatchEvent(new Event("cartUpdated"));
     };
 
@@ -105,14 +120,20 @@ const PosterDetails = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
                 {/* Image */}
                 <div>
-                    <img
-                        src={poster.path}
-                        alt={poster.name}
-                        className="w-full max-h-[600px] object-contain rounded-xl shadow"
-                    />
-                    <p className="text-sm mt-2 text-gray-500 dark:text-gray-400">
-                        Final product won't carry watermark. Slight artist signature may appear.
-                    </p>
+                    <div className="relative w-full max-w-[400px] mx-auto">
+                        <div className="bg-gray-50 p-2 shadow-2xl border border-gray-300 dark:border-gray-700">
+                            <div className="bg-white dark:bg-gray-900 border border-gray-400 dark:border-gray-600 shadow-xl overflow-hidden transition-transform duration-300 ease-in-out">
+                                <img
+                                    src={poster.path}
+                                    alt={poster.name}
+                                    className="w-full h-auto object-cover shadow-lg"
+                                />
+                            </div>
+                        </div>
+                        <p className="text-sm mt-2 text-center text-gray-500 dark:text-gray-400">
+                            Final product won't carry watermark. Slight artist signature may appear.
+                        </p>
+                    </div>
                 </div>
 
                 {/* Info */}
@@ -165,7 +186,10 @@ const PosterDetails = () => {
                             Add to cart
                         </button>
                         <Link to={"/cart"} className="w-full">
-                            <button onClick={handleBuyItNow} className="w-full bg-red-600 text-white py-3 rounded hover:bg-red-700 transition">
+                            <button
+                                onClick={handleBuyItNow}
+                                className="w-full bg-red-600 text-white py-3 rounded hover:bg-red-700 transition"
+                            >
                                 Buy it now
                             </button>
                         </Link>
@@ -173,43 +197,62 @@ const PosterDetails = () => {
 
                     {/* Order Timeline */}
                     <div className="mt-6 p-4 bg-gray-100 dark:bg-gray-800 rounded">
-                        <p>
-                            🚚 Order within <strong>2 Hours 28 Minutes</strong> for same-day dispatch
-                        </p>
+                        <p>🚚 {countdownText}</p>
                         <div className="mt-2 text-sm text-gray-600 dark:text-gray-300">
-                            <p>📦 Ordered: Aug 05</p>
-                            <p>✅ Ready: Aug 07 - Aug 09</p>
-                            <p>📬 Delivered: Aug 09 - Aug 13</p>
+                            <p>📦 Ordered: {orderedDate}</p>
+                            <p>✅ Ready: {formatDate(readyStart)} - {formatDate(readyEnd)}</p>
+                            <p>📬 Delivered: {formatDate(deliveryStart)} - {formatDate(deliveryEnd)}</p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            {/* Description */}
-            <div className="mt-16">
-                <h2 className="text-2xl font-bold mb-4">Description:</h2>
-                <ul className="list-disc ml-6 space-y-2 text-gray-700 dark:text-gray-300">
-                    <li>300 GSM matte paper, high-quality print.</li>
-                    <li>Framed options not available</li>
-                    <li>Sizes are approximate and may vary slightly.</li>
-                    <li>Free shipping for order greater than 5 posters.</li>
-                    <ul>
-                        <li>If order is 1-5 then in a normal packaging</li>
-                        <li>If order is greater than 5 then in a cardboard tube packaging</li>
-                    </ul>
-                </ul>
-            </div>
+            {/* Accordion Section */}
+            <div className="mt-16 space-y-4">
+                {/* Description Accordion */}
+                <div className="border border-gray-300 dark:border-gray-700 rounded">
+                    <button
+                        onClick={() => toggleSection("description")}
+                        className="w-full text-left px-4 py-3 font-semibold text-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+                    >
+                        📄 Description
+                    </button>
+                    {openSection === "description" && (
+                        <div className="px-6 py-4 text-gray-700 dark:text-gray-300 space-y-2">
+                            <ul className="list-disc ml-4 space-y-1">
+                                <li>300 GSM matte paper, high-quality print.</li>
+                                <li>Framed options not available.</li>
+                                <li>Sizes are approximate and may vary slightly.</li>
+                                <li>Free shipping for orders greater than 5 posters.</li>
+                                <ul className="ml-6 list-disc">
+                                    <li>If order is 1–5, then normal packaging.</li>
+                                    <li>If order is greater than 5, then cardboard tube packaging.</li>
+                                </ul>
+                            </ul>
+                        </div>
+                    )}
+                </div>
 
-            {/* Best Practices */}
-            <div className="mt-10 text-gray-700 dark:text-gray-300">
-                <h3 className="text-lg font-semibold mb-2">Additional Best Practices:</h3>
-                <ul className="list-disc ml-6 space-y-1">
-                    <li>Review sizing and description before ordering.</li>
-                    <li>Ensure accurate shipping address to avoid issues.</li>
-                    <li>
-                        See our <a href="/refund-policy" className="text-red-500 underline">refund policy</a>.
-                    </li>
-                </ul>
+                {/* Best Practices Accordion */}
+                <div className="border border-gray-300 dark:border-gray-700 rounded">
+                    <button
+                        onClick={() => toggleSection("bestPractices")}
+                        className="w-full text-left px-4 py-3 font-semibold text-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+                    >
+                        ✅ Additional Best Practices
+                    </button>
+                    {openSection === "bestPractices" && (
+                        <div className="px-6 py-4 text-gray-700 dark:text-gray-300 space-y-1">
+                            <ul className="list-disc ml-4">
+                                <li>Review sizing and description before ordering.</li>
+                                <li>Ensure accurate shipping address to avoid issues.</li>
+                                <li>
+                                    See our <a href="/refund-policy" className="text-red-500 underline">refund policy</a>.
+                                </li>
+                            </ul>
+                        </div>
+                    )}
+                </div>
             </div>
 
             {/* Notification */}

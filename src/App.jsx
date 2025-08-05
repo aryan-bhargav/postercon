@@ -14,6 +14,7 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Terms from "./pages/Terms";
 import RefundPolicy from "./pages/RefundPolicy";
 import PosterDetails from "./pages/PosterDetails";
+import ContactUs from "./pages/ContactUs";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
             <Route path="/privacy" element={<PrivacyPolicy />} />
             <Route path="/terms" element={<Terms/>} />
             <Route path="/refund-policy" element={<RefundPolicy/>} />
+            <Route path="/contact" element={<ContactUs />} />
             <Route path="/about-us" element={<AboutUs />} />
             <Route path="/category/:category" element={<CategoryPage />} />
             <Route path="/category/:category/:subcategory" element={<SubCategory />} />

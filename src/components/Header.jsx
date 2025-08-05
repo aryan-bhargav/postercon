@@ -12,7 +12,6 @@ import "../App.css";
 
 const navItems = [
   { name: "Home", link: "/" },
-  { name: "Collections", link: "/collections" },
   { name: "About", link: "/about-us" },
   { name: "Contact", link: "/contact" },
 ];
@@ -45,14 +44,14 @@ const Header = () => {
 
   return (
     <motion.header
-  ref={ref}
-  className={cn(
-    "fixed left-4 right-4 z-50 mx-auto max-w-7xl px-4 py-3 rounded-xl transition-all duration-300 backdrop-blur-md bg-gray-400/70  dark:bg-gray-950/80",
-    visible ? "top-0 shadow-2xl" : "top-4 shadow-md"
-  )}
-  initial={false}
-  animate={{ y: 0 }} // optional
->
+      ref={ref}
+      className={cn(
+        "fixed left-4 right-4 z-50 mx-auto max-w-7xl px-4 py-3 rounded-xl transition-all duration-300 backdrop-blur-md bg-gray-100/70  dark:bg-gray-950/80",
+        visible ? "top-0 shadow-2xl" : "top-4 shadow-md"
+      )}
+      initial={false}
+      animate={{ y: 0 }} // optional
+    >
 
 
       <div className="flex items-center justify-between">
@@ -63,7 +62,7 @@ const Header = () => {
             alt="logo"
             width={100}
             height={100}
-            className=""
+            className="invert dark:none"
           />
         </Link>
 
