@@ -4,7 +4,7 @@ const cars = [
     image: "/posters/Cars/cover.jpg", // ✅ Category cover
     posters: Array.from({ length: 30 }, (_, i) => ({
       name: `Supercar ${i + 1}`,
-      path: `/posters/Cars/${i + 1}.jpg`,
+      path: `/posters/Cars/${i + 1}s.jpg`,
       price: 249,
       originalPrice: 299,
     }))
