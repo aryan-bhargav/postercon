@@ -91,7 +91,7 @@ const CheckoutPage = () => {
       to_email: formData.email,
       customer_name: formData.name,
       customer_email: formData.email,
-      customer_mobile: formData.mobile,  // added here
+      customer_mobile: formData.mobile,  // Add mobile here
       customer_address: fullAddress,
       order_details: cart
         .map(
@@ -108,10 +108,11 @@ const CheckoutPage = () => {
       order_id: orderId,
     };
 
+
     try {
       const response = await emailjs.send(
-        "service_ggtfy2a",
-        "template_zvpox6h",
+        "service_w6a4fhf",
+        "template_cx71dy9",
         emailParams,
         "rKaI1-AKQsxXHO6bP"
       );
