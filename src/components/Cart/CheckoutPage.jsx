@@ -8,6 +8,7 @@ const CheckoutPage = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    mobile: "",       // added mobile here
     street: "",
     city: "",
     state: "",
@@ -23,6 +24,7 @@ const CheckoutPage = () => {
   const validateForm = () => {
     const nameRegex = /^[A-Za-z\s]{2,}$/;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const mobileRegex = /^[6-9]\d{9}$/; // Indian mobile number validation
     const pincodeRegex = /^\d{6}$/;
 
     if (!nameRegex.test(formData.name)) {
@@ -32,6 +34,11 @@ const CheckoutPage = () => {
 
     if (!emailRegex.test(formData.email)) {
       alert("Please enter a valid email address.");
+      return false;
+    }
+
+    if (!mobileRegex.test(formData.mobile)) {
+      alert("Please enter a valid 10-digit Indian mobile number.");
       return false;
     }
 
@@ -84,11 +91,12 @@ const CheckoutPage = () => {
       to_email: formData.email,
       customer_name: formData.name,
       customer_email: formData.email,
+      customer_mobile: formData.mobile,  // added here
       customer_address: fullAddress,
       order_details: cart
         .map(
           (item, i) =>
-            `${i + 1}. ${item.name} (x${item.quantity || 1}) - ₹${(
+            `${i + 1}. ${item.name} (x${item.quantity || 1}) - Rs. ${(
               item.price * (item.quantity || 1)
             ).toFixed(2)}`
         )
@@ -115,7 +123,6 @@ const CheckoutPage = () => {
     }
   };
 
-
   return (
     <div className="pt-28 pb-16 px-4 md:px-0 max-w-md mx-auto text-gray-900 dark:text-gray-100 min-h-screen">
       <h1 className="text-3xl font-bold mb-6 text-center">Checkout</h1>
@@ -136,6 +143,17 @@ const CheckoutPage = () => {
           value={formData.email}
           onChange={handleChange}
           required
+          className="w-full px-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-800"
+        />
+        {/* Mobile input added */}
+        <input
+          type="tel"
+          name="mobile"
+          placeholder="Mobile Number"
+          value={formData.mobile}
+          onChange={handleChange}
+          required
+          maxLength={10}
           className="w-full px-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-800"
         />
         <input
@@ -185,6 +203,7 @@ const CheckoutPage = () => {
           value={formData.pincode}
           onChange={handleChange}
           required
+          maxLength={6}
           className="w-full px-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-800"
         />
 
