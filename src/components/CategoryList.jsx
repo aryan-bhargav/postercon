@@ -11,7 +11,7 @@ const categories = [
       "https://i.pinimg.com/736x/d8/9e/b0/d89eb04d03c62acb1d463d50db4560ce.jpg",
   },
   {
-    name: "TV Shows",
+    name: "Shows",
     image:
       "https://images5.alphacoders.com/287/287897.jpg",
   },

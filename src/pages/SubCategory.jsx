@@ -4,6 +4,7 @@ import animeData from "../data/anime";
 import artistsData from "../data/artists";
 import moviesData from "../data/movies";
 import carsData from "../data/cars";
+import showsData from "../data/shows";
 import gamesData from "../data/games";
 import "../App.css";
 
@@ -13,13 +14,14 @@ const subCategoryData = {
   artists: artistsData,
   games: gamesData,
   cars: carsData,
+  shows: showsData
 };
 
 const SubCategory = () => {
   const { category, subcategory } = useParams();
   const posters =
     subCategoryData[category]?.find(
-      (item) => item.name.toLowerCase().replace(/\s+/g, "-") === subcategory
+      (item) => item.name.toLowerCase() === subcategory
     )?.posters || [];
 
   return (
@@ -37,7 +39,7 @@ const SubCategory = () => {
           {posters.map((poster, index) => (
             <Link
               key={index}
-              to={`/poster/${poster.name.toLowerCase().replace(/\s+/g, "-")}`}
+              to={`/poster/${poster.name.toLowerCase()}`}
               state={{ poster }}
             >
               <PosterCard

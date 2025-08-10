@@ -4,6 +4,7 @@ import moviesData from "../data/movies";
 import artistsData from "../data/artists";
 import carsData from "../data/cars";
 import gamesData from "../data/games";
+import showsData from "../data/shows";
 import "../App.css";
 
 const categoryData = {
@@ -12,6 +13,7 @@ const categoryData = {
   artists: artistsData,
   cars: carsData,
   games: gamesData,
+  shows: showsData
 };
 
 const CategoryPage = () => {
@@ -39,7 +41,7 @@ const CategoryPage = () => {
             {data.map((item, index) => (
               <Link
                 key={index}
-                to={`/category/${category}/${item.name.toLowerCase().replace(/\s+/g, "-")}`}
+                to={`/category/${category}/${item.name.toLowerCase()}`}
                 className="relative w-40 h-64 bg-gray-900 dark:bg-gray-800 text-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transform transition-transform hover:scale-105"
               >
                 {item.thumbnail && (

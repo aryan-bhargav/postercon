@@ -86,9 +86,17 @@ const CheckoutPage = () => {
       customer_email: formData.email,
       customer_address: fullAddress,
       order_details: cart
-        .map((item, i) => `${i + 1}. ${item.name} - Rs. ${item.price}`)
+        .map(
+          (item, i) =>
+            `${i + 1}. ${item.name} (x${item.quantity || 1}) - ₹${(
+              item.price * (item.quantity || 1)
+            ).toFixed(2)}`
+        )
         .join("\n"),
-      total_price: cart.reduce((sum, item) => sum + item.price * item.quantity, 0),
+      total_price: cart.reduce(
+        (sum, item) => sum + item.price * (item.quantity || 1),
+        0
+      ),
       order_id: orderId,
     };
 
@@ -106,6 +114,7 @@ const CheckoutPage = () => {
       alert("Failed to send order confirmation email. Please try again.");
     }
   };
+
 
   return (
     <div className="pt-28 pb-16 px-4 md:px-0 max-w-md mx-auto text-gray-900 dark:text-gray-100 min-h-screen">
