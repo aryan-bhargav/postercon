@@ -5,7 +5,7 @@ const anime = [
   { name: "Blue Lock", posters: [{ name: "Blue Lock 01", path: "/posters/Anime/BlueLock/1.jpg" }] },
   { name: "Chainsaw Man", posters: Array.from({ length: 3 }, (_, i) => ({ name: `Chainsaw Man ${i + 1}`, path: `/posters/Anime/ChainsawMan/${i + 1}s.jpg` })) },
   { name: "City Hunter", posters: [{ name: "City Hunter 01", path: "/posters/Anime/CityHunter/1.jpg" }] },
-  { name: "Dandadan", posters: Array.from({ length: 18 }, (_, i) => ({ name: `Dandadan ${i + 1}`, path: `/posters/Anime/Dandadan/${i + 1}s.jpeg` })) },
+  { name: "Dandadan", posters: Array.from({ length: 18 }, (_, i) => ({ name: `Dandadan ${i + 1}`, path: `/posters/Anime/Dandadan/${i + 1}s.jpg` })) },
   { name: "Demon Slayer", posters: Array.from({ length: 4 }, (_, i) => ({ name: `Demon Slayer ${i + 1}`, path: `/posters/Anime/DemonSlayer/${i + 1}s.jpg` })) },
   { name: "Dragon Ball", posters: Array.from({ length: 13 }, (_, i) => ({ name: `Dragon Ball ${i + 1}`, path: `/posters/Anime/DragonBall/${i + 1}s.jpg` })) },
   { name: "Jujutsu Kaisen", posters: Array.from({ length: 18 }, (_, i) => ({ name: `JJK ${i + 1}`, path: `/posters/Anime/JJK/${i + 1}s.jpg` })) },
